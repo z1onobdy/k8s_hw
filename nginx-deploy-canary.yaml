@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: nginx-c
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-c
+  template:
+    metadata:
+      labels:
+        app: nginx-c
+        version: "1.1"
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx-c
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: index
+            mountPath: /usr/share/nginx/html
+      volumes:
+        - name: index
+          hostPath:
+            path: /home/docker/canary
+       
+            
