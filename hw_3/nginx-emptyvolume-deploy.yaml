@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: nginx-ev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-emptyvolume
+  template:
+    metadata:
+      labels:
+        app: nginx-emptyvolume
+        version: "1.0"
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: empty-volume
+          mountPath: /ev
+      volumes:
+        - name: empty-volume
+          emptyDir: {}
+          
+       
+            
